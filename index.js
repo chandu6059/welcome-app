@@ -7,15 +7,14 @@ const port = 3000;
 // Serve static files from "public" folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Handle GET requests
 app.get("/", (req, res) => {
-  const name = req.query.name || "";
-  
+  const name = req.query.name;
+
   if (!name) {
-    // No name provided, show the form
+    // No name submitted yet, serve the form
     res.sendFile(path.join(__dirname, "public", "index.html"));
   } else {
-    // Name provided, show personalized welcome page
+    // Name submitted, respond with personalized welcome page
     res.send(`
       <html>
         <head>
@@ -50,7 +49,7 @@ app.get("/", (req, res) => {
   }
 });
 
-// Start the server
+// Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
