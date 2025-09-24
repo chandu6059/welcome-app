@@ -4,13 +4,18 @@ const path = require("path");
 const app = express();
 const port = 3000;
 
+// Serve static files from "public" folder
 app.use(express.static(path.join(__dirname, "public")));
 
+// Handle GET requests
 app.get("/", (req, res) => {
   const name = req.query.name || "";
+  
   if (!name) {
+    // No name provided, show the form
     res.sendFile(path.join(__dirname, "public", "index.html"));
   } else {
+    // Name provided, show personalized welcome page
     res.send(`
       <html>
         <head>
@@ -23,7 +28,6 @@ app.get("/", (req, res) => {
               padding-top: 100px;
             }
             h1 { color: #333; }
-            h2 { color: #444; margin-bottom: 30px; }
             .btn {
               font-size: 18px;
               padding: 10px 20px;
@@ -38,7 +42,6 @@ app.get("/", (req, res) => {
         </head>
         <body>
           <h1>Welcome to the ${name} DevOps WorkSpace</h1>
-          <h2>Welcome, ${name}!</h2>
           <button class="btn yes">Yes</button>
           <button class="btn no">No</button>
         </body>
@@ -47,6 +50,7 @@ app.get("/", (req, res) => {
   }
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
